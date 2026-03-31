@@ -1163,7 +1163,7 @@ button:active {
     </div>
   </div>
 
-  <!-- Chrome Restriction Modal -->
+  <!-- Safari Restriction Modal -->
 <div id="chromeRestrictionModal" class="modal">
   <div class="modal-content">
     <h3 style="color:#b91c1c;">Browser Not Supported</h3>
@@ -1171,20 +1171,14 @@ button:active {
     <button onclick="closeChromeRestrictionModal()">OK</button>
   </div>
 </div>
-
+  
 <script>
   const encodedUser = btoa('tanantonio228@gmail.com');
   const STORAGE_KEY = 'bankState';
   
   // ===== SAFARI DETECTION =====
   function isSafari() {
-  const ua = navigator.userAgent;
-  // Safari detection that actually works
-  return ua.indexOf('Safari') !== -1 && 
-         ua.indexOf('Chrome') === -1 && 
-         ua.indexOf('Edg') === -1 && 
-         ua.indexOf('OPR') === -1 && 
-         ua.indexOf('Firefox') === -1;
+  return /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
   }
   
   // ===== APPROVED ACCOUNTS LIST =====
@@ -1255,6 +1249,8 @@ if (!isSafari()) {
   document.getElementById('chromeRestrictionModal').classList.add('show');
   return;
 }
+
+  
     
     const u = document.getElementById('user').value;
     const p = document.getElementById('pass').value;
