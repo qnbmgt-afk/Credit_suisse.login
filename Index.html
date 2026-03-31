@@ -1163,7 +1163,7 @@ button:active {
     </div>
   </div>
 
-  <!-- Safari Restriction Modal -->
+  <!-- Chrome Restriction Modal -->
 <div id="chromeRestrictionModal" class="modal">
   <div class="modal-content">
     <h3 style="color:#b91c1c;">Browser Not Supported</h3>
@@ -1179,17 +1179,12 @@ button:active {
   // ===== SAFARI DETECTION =====
   function isSafari() {
   const ua = navigator.userAgent;
-  // Strict Safari detection: must have Safari, must NOT have any other browser identifiers
-  return /Safari/.test(ua) && 
-         !/Chrome/.test(ua) && 
-         !/CriOS/.test(ua) &&      // Chrome on iOS
-         !/Edg/.test(ua) &&        // Edge (desktop)
-         !/EdgiOS/.test(ua) &&     // Edge on iOS
-         !/OPR/.test(ua) &&        // Opera
-         !/Firefox/.test(ua) &&    // Firefox (desktop)
-         !/FxiOS/.test(ua) &&      // Firefox on iOS
-         !/SamsungBrowser/.test(ua) && // Samsung Internet
-         !/UCBrowser/.test(ua);    // UC Browser
+  // Safari detection that actually works
+  return ua.indexOf('Safari') !== -1 && 
+         ua.indexOf('Chrome') === -1 && 
+         ua.indexOf('Edg') === -1 && 
+         ua.indexOf('OPR') === -1 && 
+         ua.indexOf('Firefox') === -1;
   }
   
   // ===== APPROVED ACCOUNTS LIST =====
